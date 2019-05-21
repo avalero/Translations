@@ -1,4 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga';
+import { uuid4 } from 'uuid/v4';
 
 interface IUser {
   id: string;
@@ -69,6 +70,7 @@ const typeDefs: string = `
   type Mutation {
     createLiteral(literal:String!): String!
     addTranslation(literal:String!, lang:String!, tr:String!, as_in:String): Translation!
+    createUser(name: String!, mail: String!)
   }
 
   type User {
@@ -131,6 +133,25 @@ const resolvers = {
 
       literals.push(args.literal);
       return args.literal;
+    },
+
+    createUser(
+      parent: any,
+      args: { name: string; mail: string },
+      ctx: any,
+      info: any
+    ): IUser {
+      if (users.some(usr => usr.mail === args.mail)) {
+        throw new Error('User mail is already in use');
+      }
+
+      const user: IUser = {
+        ...args,
+        id: uuid4(),
+      };
+
+      users.push(user);
+      return user;
     },
 
     addTranslation(
