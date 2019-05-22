@@ -1,0 +1,40 @@
+type User {
+  id: ID!
+  name: String!
+  mail: String!
+  active: Boolean!
+  translations: [Translation!]!
+}
+
+type Translation {
+  literal: ID!
+  as_in: String
+  tr: String!
+  translator: User!
+  lang: String!
+}
+type Query {
+  translations(lang: String): [Translation!]
+  users: [User!]
+  literals: [String!]!
+  literalTranslation(literal: String!, lang: String): Translation
+}
+
+type Mutation {
+  createLiteral(literal: String!): String!
+  addTranslation(data: AddTranslationInput!): Translation!
+  createUser(data: CreateUserInput!): User!
+  deactivateUser(id: String!): User!
+}
+
+input CreateUserInput {
+  name: String!
+  mail: String!
+}
+
+input AddTranslationInput {
+  literal: String!
+  lang: String!
+  tr: String!
+  as_in: String
+}

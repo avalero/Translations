@@ -7,8 +7,8 @@
     "build": "tsc",
     "start": "ts-node ./src/index.ts",
     "start-inspect": "node --inspect=0.0.0.0 -r ts-node/register ./src/index.ts",
-    "dev": "./node_modules/nodemon/bin/nodemon.js",
-    "dev-inspect": "nodemon --exec npm run start-inspect",
+    "dev": "./node_modules/nodemon/bin/nodemon.js --ext ts,graphql",
+    "dev-inspect": "nodemon --ext ts,graphql --exec npm run start-inspect",
     "prod": "npm run build && npm run start",
     "tslint:dev": "tslint -c ./tslint-dev.json \"**/*.ts\"",
     "tslint:prod": "tslint -c ./tslint-prod.json \"**/*.ts\"",
@@ -31,15 +31,16 @@
   "dependencies": {
     "@types/graphql": "^14.2.0",
     "@types/node": "^12.0.0",
+    "@types/uuid": "^3.4.4",
     "graphql": "^14.3.0",
     "graphql-yoga": "^1.17.4",
     "typescript": "^3.4.5",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "tsc": "^1.20150623.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.0",
     "prettier": "^1.17.0",
-    "tsc": "^1.20150623.0",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0"
   }
